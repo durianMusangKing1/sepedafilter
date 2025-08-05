@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dasbor Evolusi Proyek Sepeda Filter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with Green/Blue Accents -->
+    <!-- Application Structure Plan: The structure tells a story of improvement. It starts with the 'Initial Problem' (v1 analysis) to establish the core challenge. It then presents the 'Upgraded Solution' (v2 analysis) with a clear comparison, highlighting the BLDC option's superiority. It provides 'Interactive Simulators' for the new, improved system. Finally, it adds a Gemini-powered 'AI Assistant' to help with the project's next steps (mechanical engineering, maintenance), making the dashboard an active development tool. -->
+    <!-- Visualization & Content Choices: 1. Initial Power Deficit (v1) -> Goal: Show problem -> Viz: Donut Chart -> Justification: Instantly visualizes the massive power imbalance. 2. Charging Time Improvement (v1 vs v2) -> Goal: Compare -> Viz: Bar Chart -> Justification: A powerful visual showing the dramatic reduction in charging time. 3. System Option Comparison (v2) -> Goal: Inform decision -> Viz: HTML Table -> Justification: Clearly lays out the pros and cons of PMDC vs BLDC. 4. Interactive Simulators (v2) -> Goal: Explore -> Viz: Sliders/Inputs -> Justification: Engages the user and connects system performance to real-world application. 5. AI Assistant (v3 - Gemini) -> Goal: Advise/Brainstorm -> Viz: Input/Output Text Area -> Justification: Provides actionable, intelligent feedback for the project's future development. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .metric-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            border: 1px solid #e2e8f0;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .spinner {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        .prose {
+            max-width: none;
+        }
+        .prose h3 {
+            margin-bottom: 0.5em;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        .prose ul {
+            list-style-type: disc;
+            padding-left: 1.5em;
+            margin-top: 0.5em;
+        }
+        .prose li {
+            margin-bottom: 0.25em;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+
+        <header class="text-center mb-12">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900">Evolusi Sistem Sepeda Filter</h1>
+            <p class="mt-3 text-lg text-slate-600 max-w-3xl mx-auto">Sebuah perjalanan dari identifikasi masalah defisit daya hingga solusi rekayasa yang efisien dan berkelanjutan.</p>
+        </header>
+
+        <main class="space-y-16">
+
+            <!-- Section 1: The Initial Problem -->
+            <section id="problem">
+                <h2 class="text-2xl font-bold text-center mb-2 text-slate-900">Tahap 1: Sistem Awal & Tantangan Efisiensi</h2>
+                <p class="text-center text-slate-600 max-w-2xl mx-auto mb-8">
+                    Analisis awal (v1) menunjukkan sistem filter yang fungsional namun memiliki kelemahan kritis: defisit daya yang ekstrem antara pengisian dan pemakaian.
+                </p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="metric-card">
+                        <h3 class="text-xl font-bold text-center mb-4">Perbandingan Daya (Sistem Awal)</h3>
+                        <div class="chart-container h-64 sm:h-72 max-w-xs">
+                            <canvas id="initialPowerChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="metric-card text-center">
+                        <h3 class="text-lg font-semibold text-slate-500">Rasio Pengisian vs Pemakaian</h3>
+                        <p class="text-4xl md:text-5xl font-bold text-red-600 my-3">14.6 Jam</p>
+                        <p class="text-slate-600 max-w-xs mx-auto">Waktu pengisian yang dibutuhkan untuk <strong class="text-slate-800">1 jam</strong> pemakaian sistem. Ini membuat sistem tidak praktis untuk penggunaan rutin.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: The Upgraded Solution -->
+            <section id="solution">
+                <h2 class="text-2xl font-bold text-center mb-2 text-slate-900">Tahap 2: Peningkatan Sistem & Solusi Rekayasa</h2>
+                <p class="text-center text-slate-600 max-w-2xl mx-auto mb-8">
+                    Berdasarkan analisis v2, sistem direvisi dengan dua opsi generator baru. Tujuannya adalah untuk membalikkan defisit daya dan mencapai surplus energi.
+                </p>
+                
+                <div class="metric-card mb-8">
+                    <h3 class="text-xl font-bold text-center mb-4">Peningkatan Drastis Waktu Charging</h3>
+                    <div class="chart-container h-72 sm:h-80 max-w-2xl">
+                        <canvas id="chargingImprovementChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3 class="text-xl font-bold text-center mb-6">Perbandingan Opsi Peningkatan</h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-slate-100">
+                                <tr>
+                                    <th class="p-3 font-semibold">Metrik</th>
+                                    <th class="p-3 font-semibold">Opsi 1 (PMDC)</th>
+                                    <th class="p-3 font-semibold">Opsi 2 (BLDC)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b">
+                                    <td class="p-3 font-medium">Daya Masuk Realistis</td>
+                                    <td class="p-3">68.6 W</td>
+                                    <td class="p-3">68.6 W</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 font-medium">Rasio Charging:Pakai</td>
+                                    <td class="p-3">0.73 jam : 1 jam</td>
+                                    <td class="p-3">0.73 jam : 1 jam</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="p-3 font-medium">Waktu Charge Penuh</td>
+                                    <td class="p-3">3.5 jam</td>
+                                    <td class="p-3">3.5 jam</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-medium">Kelayakan Mekanis</td>
+                                    <td class="p-3 text-orange-600">Menantang (Gir 42:1)</td>
+                                    <td class="p-3 text-green-600 font-bold">Sangat Layak (Gir 10:1)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                     <p class="mt-4 text-center text-slate-600 bg-green-50 p-3 rounded-lg border border-green-200">
+                        <strong class="text-green-800">Rekomendasi:</strong> Opsi 2 (BLDC) adalah pilihan superior karena kelayakan mekanisnya yang jauh lebih praktis.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 3: Interactive Simulators -->
+            <section id="simulator">
+                <h2 class="text-2xl font-bold text-center mb-2 text-slate-900">Tahap 3: Simulator Performa Sistem (BLDC)</h2>
+                <p class="text-center text-slate-600 max-w-2xl mx-auto mb-8">
+                    Jelajahi kapabilitas sistem yang telah ditingkatkan (berdasarkan Opsi 2: BLDC) menggunakan kalkulator interaktif di bawah ini.
+                </p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="metric-card">
+                        <h3 class="text-xl font-bold mb-4">Kalkulator Kebutuhan Air</h3>
+                        <p class="text-slate-600 mb-4">Masukkan jumlah orang untuk menghitung total waktu operasi dan waktu charging yang dibutuhkan.</p>
+                        
+                        <label for="peopleCount" class="block mb-2 font-medium text-slate-700">Jumlah Orang</label>
+                        <input type="number" id="peopleCount" value="1" min="1" class="w-full p-2 border border-slate-300 rounded-lg">
+                        
+                        <div class="mt-6 space-y-3 text-center bg-slate-100 p-4 rounded-lg">
+                            <div>
+                                <p class="text-md text-slate-600">Waktu Produksi Air</p>
+                                <p class="text-2xl font-bold text-slate-800"><span id="waterTime">15.5</span> menit</p>
+                            </div>
+                            <hr>
+                            <div>
+                                <p class="text-md text-slate-600">Waktu Charging yang Dibutuhkan</p>
+                                <p class="text-2xl font-bold text-slate-800"><span id="waterChargingTime">11.3</span> menit</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <h3 class="text-xl font-bold mb-4">Kalkulator Waktu Charging</h3>
+                        <p class="text-slate-600 mb-4">Masukkan berapa lama Anda ingin menggunakan sistem untuk melihat berapa lama waktu charging yang diperlukan.</p>
+                        
+                        <label for="usageHours" class="block mb-2 font-medium text-slate-700">Waktu Pemakaian (Jam)</label>
+                        <input type="number" id="usageHours" value="1" min="0.1" step="0.1" class="w-full p-2 border border-slate-300 rounded-lg">
+                        
+                        <div class="mt-6 text-center bg-slate-100 p-4 rounded-lg">
+                            <p class="text-lg text-slate-600">Estimasi Waktu Charging</p>
+                            <p class="text-5xl font-bold text-slate-800 mt-1"><span id="chargingTimeValue">44</span> <span class="text-2xl font-medium">menit</span></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: AI Assistant -->
+            <section id="ai-assistant">
+                <h2 class="text-2xl font-bold text-center mb-2 text-slate-900">Tahap 4: Asisten Proyek Cerdas ✨</h2>
+                <p class="text-center text-slate-600 max-w-2xl mx-auto mb-8">
+                    Gunakan kekuatan AI untuk membantu Anda pada tahap selanjutnya. Ajukan pertanyaan tentang rekayasa mekanis, perawatan, atau ide pengembangan lainnya.
+                </p>
+                <div class="metric-card">
+                    <div class="space-y-4">
+                        <label for="ai-prompt" class="font-medium text-slate-700">Ajukan pertanyaan Anda:</label>
+                        <textarea id="ai-prompt" rows="3" class="w-full p-2 border border-slate-300 rounded-lg" placeholder="Contoh: Berikan saya ide untuk desain transmisi gir rasio 10:1 yang efisien dan tidak berisik."></textarea>
+                        
+                        <div class="flex flex-wrap gap-2">
+                            <button class="suggestion-btn text-sm bg-slate-200 hover:bg-slate-300 text-slate-800 py-1 px-3 rounded-full">Ide desain transmisi 10:1</button>
+                            <button class="suggestion-btn text-sm bg-slate-200 hover:bg-slate-300 text-slate-800 py-1 px-3 rounded-full">Buat jadwal perawatan sistem</button>
+                            <button class="suggestion-btn text-sm bg-slate-200 hover:bg-slate-300 text-slate-800 py-1 px-3 rounded-full">Potensi risiko & mitigasinya</button>
+                        </div>
+
+                        <button id="submit-ai" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center">
+                            <span id="submit-ai-text">Kirim Pertanyaan</span>
+                            <div id="submit-ai-spinner" class="spinner" style="display: none;"></div>
+                        </button>
+                    </div>
+
+                    <div id="ai-response-container" class="mt-6" style="display: none;">
+                        <h3 class="text-lg font-bold border-b pb-2 mb-3">Jawaban dari Asisten AI:</h3>
+                        <div id="ai-response" class="prose text-slate-700 bg-slate-50 p-4 rounded-lg"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Conclusion -->
+            <section id="kesimpulan">
+                <h2 class="text-2xl font-bold text-center mb-6 text-slate-900">Kesimpulan Akhir & Langkah Selanjutnya</h2>
+                <div class="metric-card space-y-4">
+                    <div class="flex items-start">
+                        <span class="text-green-500 font-bold text-xl mr-4">✓</span>
+                        <p><strong class="text-slate-800">Masalah Terpecahkan:</strong> Sistem yang ditingkatkan berhasil mengatasi defisit daya secara tuntas, mengubah rasio charging dari 14.6 jam menjadi hanya 44 menit untuk setiap 1 jam pemakaian.</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-green-500 font-bold text-xl mr-4">✓</span>
+                        <p><strong class="text-slate-800">Surplus Energi:</strong> Sistem kini mampu mengisi daya lebih cepat daripada mengkonsumsinya, menjadikannya praktis dan dapat diandalkan untuk penggunaan rutin di lapangan.</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-blue-500 font-bold text-xl mr-4">→</span>
+                        <p><strong class="text-slate-800">Fokus Selanjutnya: Rekayasa Mekanis.</strong> Tantangan utama kini beralih ke perancangan dan implementasi sistem transmisi (gir rasio ~10:1) yang efisien dan ergonomis untuk menghubungkan kayuhan sepeda ke generator BLDC.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-16 pt-8 border-t border-slate-200">
+            <p class="text-sm text-slate-500">&copy; 2024 Dasbor Evolusi Sepeda Filter. Analisis komprehensif untuk inovasi berkelanjutan.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- System Data ---
+            const initialSystem = {
+                powerIn: 3.42,
+                powerOut: 50,
+                chargingRatio: 14.6 
+            };
+            const upgradedSystem = {
+                powerIn: 68.6,
+                powerOut: 50,
+                chargingRatio: 0.73,
+                waterUF_LPM: 6.7,
+                waterRO_LPM: 0.4,
+                waterSanitationPerPersonL: 70,
+                waterDrinkingPerPersonL: 2,
+            };
+
+            // --- Chart 1: Initial Power Deficit ---
+            const initialPowerCtx = document.getElementById('initialPowerChart').getContext('2d');
+            new Chart(initialPowerCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Daya Masuk (Charging)', 'Daya Keluar (Beban)'],
+                    datasets: [{
+                        data: [initialSystem.powerIn, initialSystem.powerOut],
+                        backgroundColor: ['#10b981', '#ef4444'],
+                        borderColor: ['#059669', '#dc2626'],
+                        borderWidth: 1,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom' } }
+                }
+            });
+
+            // --- Chart 2: Charging Improvement ---
+            const improvementCtx = document.getElementById('chargingImprovementChart').getContext('2d');
+            new Chart(improvementCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Waktu Charging untuk 1 Jam Pakai'],
+                    datasets: [
+                        {
+                            label: 'Sistem Awal',
+                            data: [initialSystem.chargingRatio],
+                            backgroundColor: '#ef4444',
+                            borderColor: '#dc2626',
+                            borderWidth: 1,
+                            barPercentage: 0.5,
+                        },
+                        {
+                            label: 'Sistem Ditingkatkan',
+                            data: [upgradedSystem.chargingRatio],
+                            backgroundColor: '#22c55e',
+                            borderColor: '#16a34a',
+                            borderWidth: 1,
+                            barPercentage: 0.5,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Waktu (Jam)' }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let value = context.parsed.y;
+                                    let hours = Math.floor(value);
+                                    let minutes = Math.round((value - hours) * 60);
+                                    return `${context.dataset.label}: ${hours} jam ${minutes} menit`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // --- Interactive Simulators Logic ---
+            const peopleInput = document.getElementById('peopleCount');
+            const waterTimeEl = document.getElementById('waterTime');
+            const waterChargingTimeEl = document.getElementById('waterChargingTime');
+            
+            const usageHoursInput = document.getElementById('usageHours');
+            const chargingTimeValueEl = document.getElementById('chargingTimeValue');
+
+            function calculateWaterNeeds() {
+                const people = parseInt(peopleInput.value) || 0;
+                if (people < 1) {
+                    waterTimeEl.textContent = '0';
+                    waterChargingTimeEl.textContent = '0';
+                    return;
+                }
+
+                const timeForSanitation = (people * upgradedSystem.waterSanitationPerPersonL) / upgradedSystem.waterUF_LPM;
+                const timeForDrinking = (people * upgradedSystem.waterDrinkingPerPersonL) / upgradedSystem.waterRO_LPM;
+                const totalOperationMinutes = timeForSanitation + timeForDrinking;
+                
+                const energyConsumedWh = upgradedSystem.powerOut * (totalOperationMinutes / 60);
+                const chargingTimeHours = energyConsumedWh / upgradedSystem.powerIn;
+                const chargingTimeMinutes = chargingTimeHours * 60;
+
+                waterTimeEl.textContent = totalOperationMinutes.toFixed(1);
+                waterChargingTimeEl.textContent = chargingTimeMinutes.toFixed(1);
+            }
+
+            function calculateChargingTime() {
+                const usageHours = parseFloat(usageHoursInput.value) || 0;
+                const requiredChargingHours = usageHours * upgradedSystem.chargingRatio;
+                const hours = Math.floor(requiredChargingHours);
+                const minutes = Math.round((requiredChargingHours - hours) * 60);
+                
+                if (hours > 0) {
+                    chargingTimeValueEl.innerHTML = `${hours} <span class="text-2xl font-medium">jam</span> ${minutes} <span class="text-2xl font-medium">menit</span>`;
+                } else {
+                    chargingTimeValueEl.innerHTML = `${minutes} <span class="text-2xl font-medium">menit</span>`;
+                }
+            }
+            
+            peopleInput.addEventListener('input', calculateWaterNeeds);
+            usageHoursInput.addEventListener('input', calculateChargingTime);
+
+            // --- AI Assistant Logic ---
+            const aiPromptEl = document.getElementById('ai-prompt');
+            const submitAiBtn = document.getElementById('submit-ai');
+            const submitAiText = document.getElementById('submit-ai-text');
+            const submitAiSpinner = document.getElementById('submit-ai-spinner');
+            const aiResponseContainer = document.getElementById('ai-response-container');
+            const aiResponseEl = document.getElementById('ai-response');
+            const suggestionBtns = document.querySelectorAll('.suggestion-btn');
+
+            suggestionBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    aiPromptEl.value = btn.textContent;
+                    submitAiBtn.click();
+                });
+            });
+            
+            submitAiBtn.addEventListener('click', () => {
+                const userPrompt = aiPromptEl.value;
+                if (!userPrompt.trim()) {
+                    alert('Mohon masukkan pertanyaan Anda.');
+                    return;
+                }
+                callGeminiAPI(userPrompt);
+            });
+
+            async function callGeminiAPI(userPrompt) {
+                setLoading(true);
+                aiResponseContainer.style.display = 'block';
+                aiResponseEl.innerHTML = 'Memproses jawaban...';
+
+                const fullPrompt = `Anda adalah seorang ahli rekayasa mekanik dan sistem. Berdasarkan konteks sebuah proyek "Sepeda Filter" yang bertujuan untuk menyediakan air bersih di daerah terpencil, jawablah pertanyaan berikut.
+                
+                Konteks Sistem:
+                - Sumber Tenaga: Kayuhan manusia, menghasilkan daya mekanis sekitar 100W.
+                - Generator: Motor BLDC 350W, dioperasikan sebagai generator.
+                - Target Mekanis: Mencapai rasio gir sekitar 10:1 untuk mengubah kayuhan RPM rendah menjadi RPM tinggi yang dibutuhkan generator.
+                - Penyimpanan Energi: Aki 12V 20Ah.
+                - Kontroler: SCC MPPT 30A.
+                - Beban: Pompa dan sistem filter yang membutuhkan daya 50W.
+                
+                Pertanyaan Pengguna: "${userPrompt}"
+
+                Berikan jawaban yang terstruktur, praktis, dan mudah dipahami. Gunakan daftar (bullet points) jika memungkinkan untuk menjelaskan langkah-langkah atau komponen.`;
+
+                const apiKey = ""; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{
+                                    text: fullPrompt
+                                }]
+                            }]
+                        })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API Error: ${response.status} ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates.length > 0 && result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        aiResponseEl.innerHTML = formatResponse(text);
+                    } else {
+                        aiResponseEl.textContent = 'Maaf, tidak ada jawaban yang dapat dihasilkan. Coba lagi.';
+                    }
+
+                } catch (error) {
+                    console.error("Error calling Gemini API:", error);
+                    aiResponseEl.textContent = 'Terjadi kesalahan saat menghubungi asisten AI. Mohon periksa koneksi Anda dan coba lagi.';
+                } finally {
+                    setLoading(false);
+                }
+            }
+
+            function setLoading(isLoading) {
+                if (isLoading) {
+                    submitAiBtn.disabled = true;
+                    submitAiText.style.display = 'none';
+                    submitAiSpinner.style.display = 'inline-block';
+                } else {
+                    submitAiBtn.disabled = false;
+                    submitAiText.style.display = 'inline-block';
+                    submitAiSpinner.style.display = 'none';
+                }
+            }
+
+            function formatResponse(text) {
+                // Simple markdown-like formatting for lists and bold text
+                return text
+                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
+                    .replace(/^\* (.*$)/gm, '<li>$1</li>') // List items
+                    .replace(/(\<li\>.*\<\/li\>)/gs, '<ul>$1</ul>') // Wrap lists
+                    .replace(/\n/g, '<br>');
+            }
+
+            // Initial calculations
+            calculateWaterNeeds();
+            calculateChargingTime();
+        });
+    </script>
+</body>
+</html>
